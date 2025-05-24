@@ -38,14 +38,14 @@ public class ProductController {
         List<Category> categories = categoryService.getAllCategories();
         model.addAttribute("product", new Product());
         model.addAttribute("categories", categories);
-        return "products_add";
+        return "admin_product_create";
     }
 
     @GetMapping
     public String getAllProducts(Model model) {
         List<Product> products = productService.getAllProducts();
         model.addAttribute("products", products);
-        return "products_list";
+        return "admin_product_management";
     }
 
     @GetMapping("/edit/{id}")
@@ -54,7 +54,7 @@ public class ProductController {
         List<Category> categories = categoryService.getAllCategories();
         model.addAttribute("product", product);
         model.addAttribute("categories", categories);
-        return "products_edit";
+        return "admin_product_update";
     }
 
     @PostMapping("/add")

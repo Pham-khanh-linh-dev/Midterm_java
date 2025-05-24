@@ -36,8 +36,8 @@ public class DashboardController {
 
     @GetMapping("all-product")
     public String showAllProduct(Model model,
-                                 @RequestParam(name = "category", required = false) Long categoryId,
-                                 @RequestParam(name = "sortBy", defaultValue = "") String sortBy){
+                                @RequestParam(name = "category", required = false) Long categoryId,
+                                @RequestParam(name = "sortBy", defaultValue = "") String sortBy){
         List<Category> categories = categoryService.getAllCategories();
         List<Product> allProducts = productService.getAllProducts();
         List<Product> filteredProducts = new ArrayList<>(allProducts);
@@ -59,7 +59,35 @@ public class DashboardController {
         model.addAttribute("sortBy", sortBy);
         model.addAttribute("categories", categories);
         model.addAttribute("products", filteredProducts);
-        return "all-product";
+        return "store_product_catalog";
+    }
+
+    @GetMapping("/store_product_catalog")
+    public String showStoreProductCatalog(Model model,
+                                @RequestParam(name = "category", required = false) Long categoryId,
+                                @RequestParam(name = "sortBy", defaultValue = "") String sortBy){
+        List<Category> categories = categoryService.getAllCategories();
+        List<Product> allProducts = productService.getAllProducts();
+        List<Product> filteredProducts = new ArrayList<>(allProducts);
+        if(categoryId != null){
+            Category category = categoryService.getCategoryById(categoryId.longValue());
+            if (category != null) {
+                filteredProducts.retainAll(productService.getProductsByCategory(category));
+            }
+        }
+
+        switch (sortBy){
+            case "desc":
+                Collections.sort(filteredProducts, Comparator.comparing(Product::getPrice).reversed());
+                break;
+            case "asc":
+                Collections.sort(filteredProducts, Comparator.comparing(Product::getPrice));
+                break;
+        }
+        model.addAttribute("sortBy", sortBy);
+        model.addAttribute("categories", categories);
+        model.addAttribute("products", filteredProducts);
+        return "store_product_catalog";
     }
 
     @GetMapping("detail/{id}")

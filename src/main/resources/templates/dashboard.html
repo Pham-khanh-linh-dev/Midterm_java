@@ -9,63 +9,159 @@
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
           integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
-    <title>TDTU - Shop</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>Tech Market</title>
     <style>
-        .carousel-inner img {
-            width: 100%;
-            height: 100%;
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fc;
         }
 
-        .card:hover {
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-            transform: scale(1.05);
-            transition: box-shadow 0.3s ease, transform 0.3s ease;
+        .carousel-inner img {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            border-radius: 1rem;
+        }
+
+        .carousel {
+            margin: 2rem 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            border-radius: 1rem;
+            overflow: hidden;
+        }
+
+        .category-title {
+            position: relative;
+            font-size: 2rem;
+            font-weight: 600;
+            color: #2e59d9;
+            margin: 3rem 0 2rem;
+            text-align: center;
+        }
+
+        .category-title:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, #4e73df 0%, #2e59d9 100%);
+            border-radius: 2px;
         }
 
         .card {
-            cursor: pointer;
+            border: none;
+            border-radius: 1rem;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            background: #fff;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
         }
 
         .card a {
             text-decoration: none;
+            color: inherit;
         }
 
         .card-img-top {
-            height: 240px;
+            height: 280px;
             object-fit: cover;
-            object-position: center top;
+            object-position: center;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover .card-img-top {
+            transform: scale(1.05);
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #2e59d9;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-price {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #4e73df;
+        }
+
+        .btn-view {
+            background: linear-gradient(90deg, #4e73df 0%, #2e59d9 100%);
+            color: white;
+            border: none;
+            border-radius: 2rem;
+            padding: 0.5rem 1.5rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .btn-view:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(78,115,223,0.3);
+        }
+
+        .section-padding {
+            padding: 4rem 0;
+        }
+
+        .empty-category {
+            text-align: center;
+            padding: 3rem;
+            background: #fff;
+            border-radius: 1rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            margin: 2rem 0;
+        }
+
+        .empty-category i {
+            font-size: 3rem;
+            color: #4e73df;
+            margin-bottom: 1rem;
+        }
+
+        .empty-category p {
+            color: #6c757d;
+            font-size: 1.1rem;
         }
     </style>
 </head>
 <body>
 <nav th:replace="dashboardtopbar::topbar"></nav>
+
 <!-- Header-->
 <header th:replace="carousel"></header>
+
 <!-- Section-->
-<section class="py-5">
+<section class="section-padding">
     <div th:each="category: ${productsInCategory}">
         <div th:if="${not #lists.isEmpty(category.value)}">
-            <div class="container px-4 px-lg-5 mt-5">
-                <div class="row mb-4">
-                    <div class="col d-flex justify-content-center">
-                        <h2 class="fw-bolder" th:text="${category.key.categoryName}"></h2>
-                    </div>
-                </div>
+            <div class="container px-4 px-lg-5">
+                <h2 class="category-title" th:text="${category.key.categoryName}"></h2>
                 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
                     <div th:each="product : ${category.value}">
                         <div class="col mb-5">
                             <a th:href="@{'/detail/' + ${product.id}}">
                                 <div class="card h-100">
-                                    <!-- Product image -->
                                     <img th:src="${product.fileUrl}" alt="Product Photo" class="card-img-top" />
-                                    <!-- Product details -->
-                                    <div class="card-body p-4">
-                                        <div class="text-center">
-                                            <!-- Product name -->
-                                            <h5 class="fw-bolder" th:text="${product.name}"></h5>
-                                            <!-- Product price -->
-                                            Price: <span th:text="${product.price}"></span>
-                                        </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title" th:text="${product.name}"></h5>
+                                        <p class="card-price" th:text="'$' + ${product.price}"></p>
+                                        <button class="btn btn-view">View Details</button>
                                     </div>
                                 </div>
                             </a>
@@ -74,9 +170,17 @@
                 </div>
             </div>
         </div>
+        <div th:if="${#lists.isEmpty(category.value)}">
+            <div class="container">
+                <div class="empty-category">
+                    <i class="fas fa-box-open"></i>
+                    <p>No products available in this category yet.</p>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
-<!-- Footer-->
+
 <!-- Logout Modal-->
 <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
@@ -96,9 +200,8 @@
         </div>
     </div>
 </div>
+
 <!-- Bootstrap core JS-->
-<!--        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>-->
-<!--        &lt;!&ndash; Core theme JS&ndash;&gt;-->
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
