@@ -42,12 +42,15 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public void initDb() {
-        Category category1 =new Category();
-        category1.setCategoryName("Phone");
-        categoryRepository.save(category1);
-
-        Category category2 =new Category();
-        category2.setCategoryName("Tablet");
-        categoryRepository.save(category2);
+        if (categoryRepository.findAll().stream().noneMatch(c -> "Phone".equalsIgnoreCase(c.getCategoryName()))) {
+            Category category1 = new Category();
+            category1.setCategoryName("Phone");
+            categoryRepository.save(category1);
+        }
+        if (categoryRepository.findAll().stream().noneMatch(c -> "Tablet".equalsIgnoreCase(c.getCategoryName()))) {
+            Category category2 = new Category();
+            category2.setCategoryName("Tablet");
+            categoryRepository.save(category2);
+        }
     }
 }

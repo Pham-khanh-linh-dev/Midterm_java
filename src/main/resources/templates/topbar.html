@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow" th:fragment = "topbar">
+<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow-sm" th:fragment = "topbar" style="border-radius: 1.5rem; margin: 1rem;">
 
     <!-- Sidebar Toggle (Topbar) -->
     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
@@ -6,13 +6,13 @@
     </button>
 
     <!-- Topbar Navbar -->
-    <ul class="navbar-nav ml-auto">
+    <ul class="navbar-nav ml-auto align-items-center">
         <!-- Nav Item - User Information -->
         <li class="nav-item dropdown no-arrow">
-            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+            <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="userDropdown" role="button"
                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small" sec:authentication="name"></span>
-                <img class="img-profile rounded-circle"
+                <span class="mr-2 d-none d-lg-inline text-gray-700 font-weight-bold small" sec:authentication="name"></span>
+                <img class="img-profile rounded-circle border border-primary" style="width: 40px; height: 40px; object-fit: cover;"
                      th:src="@{../css/admin/img/undraw_profile.svg}">
             </a>
             <!-- Dropdown - User Information -->

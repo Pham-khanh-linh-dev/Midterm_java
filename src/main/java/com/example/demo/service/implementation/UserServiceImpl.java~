@@ -34,7 +34,7 @@ public class UserServiceImpl implements UserService {
             System.out.println("Admin already exists");
         }
 
-        if (userRepository.findByEmail("khanhbl9848@gmail.com") == null) {
+        if (userRepository.findByEmail("admin@gmail.com") == null) {
             User user = new User();
             user.setEmail("khanhbl9848@gmail.com");
             user.setPassword(passwordEncoder.encode("pklinh123"));

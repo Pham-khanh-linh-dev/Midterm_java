@@ -85,82 +85,87 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void initDB() {
-        Category category1 = new Category(1L);
-
-        Category category2 = new Category(2L);
-
-        Product product1 = new Product();
-        product1.setName("Iphone 15");
-        product1.setPrice(799.0);
-        product1.setBrand("Apple");
-        product1.setDescription("Newest Phone");
-        product1.setCategory(category1);
-        product1.setFileUrl("../uploads/iphone15.jpg");
-        productRepository.save(product1);
-
-        Product product2 = new Product();
-        product2.setName("Ipad Air 4");
-        product2.setPrice(599.0);
-        product2.setBrand("Apple");
-        product2.setDescription("Newest Tablet");
-        product2.setCategory(category2);
-        product2.setFileUrl("../uploads/ipadair4.png");
-        productRepository.save(product2);
-
-        Product product3 = new Product();
-        product3.setName("Ipad Gen 10");
-        product3.setPrice(699.0);
-        product3.setBrand("Apple");
-        product3.setDescription("Newest Tablet");
-        product3.setCategory(category2);
-        product3.setFileUrl("../uploads/ipadgen10.jpg");
-        productRepository.save(product3);
-
-
-        Product product4 = new Product();
-        product4.setName("Ipad Mini");
-        product4.setPrice(699.0);
-        product4.setBrand("Apple");
-        product4.setDescription("Newest Tablet");
-        product4.setCategory(category2);
-        product4.setFileUrl("../uploads/ipadmini.jpg");
-        productRepository.save(product4);
-
-        Product product5 = new Product();
-        product5.setName("Samsung S23");
-        product5.setPrice(849.0);
-        product5.setBrand("Samsung");
-        product5.setDescription("Newest Phone");
-        product5.setCategory(category1);
-        product5.setFileUrl("../uploads/samsungs23.png");
-        productRepository.save(product5);
-
-        Product product6 = new Product();
-        product6.setName("Iphone 15 Pro Max");
-        product6.setPrice(999.0);
-        product6.setBrand("Apple");
-        product6.setDescription("Newest Phone");
-        product6.setCategory(category1);
-        product6.setFileUrl("../uploads/iphone15promax.png");
-        productRepository.save(product6);
-
-        Product product7 = new Product();
-        product7.setName("Samsung S10");
-        product7.setPrice(499.0);
-        product7.setBrand("Samsung");
-        product7.setDescription("Newest Phone");
-        product7.setCategory(category1);
-        product7.setFileUrl("../uploads/samsungs10.jpg");
-        productRepository.save(product7);
-
-        Product product8 = new Product();
-        product8.setName("Ipad Pro 11");
-        product8.setPrice(749.0);
-        product8.setBrand("Apple");
-        product8.setDescription("Newest Tablet");
-        product8.setCategory(category2);
-        product8.setFileUrl("../uploads/ipadpro11.png");
-        productRepository.save(product8);
+        // Check and add each product only if it does not exist (by name)
+        if (productRepository.findAll().stream().noneMatch(p -> "Iphone 15".equalsIgnoreCase(p.getName()))) {
+            Product product1 = new Product();
+            product1.setName("Iphone 15");
+            product1.setPrice(799.0);
+            product1.setBrand("Apple");
+            product1.setDescription("Newest Phone");
+            product1.setCategory(new Category(1L));
+            product1.setFileUrl("../uploads/iphone15.jpg");
+            productRepository.save(product1);
+        }
+        if (productRepository.findAll().stream().noneMatch(p -> "Ipad Air 4".equalsIgnoreCase(p.getName()))) {
+            Product product2 = new Product();
+            product2.setName("Ipad Air 4");
+            product2.setPrice(599.0);
+            product2.setBrand("Apple");
+            product2.setDescription("Newest Tablet");
+            product2.setCategory(new Category(2L));
+            product2.setFileUrl("../uploads/ipadair4.png");
+            productRepository.save(product2);
+        }
+        if (productRepository.findAll().stream().noneMatch(p -> "Ipad Gen 10".equalsIgnoreCase(p.getName()))) {
+            Product product3 = new Product();
+            product3.setName("Ipad Gen 10");
+            product3.setPrice(699.0);
+            product3.setBrand("Apple");
+            product3.setDescription("Newest Tablet");
+            product3.setCategory(new Category(2L));
+            product3.setFileUrl("../uploads/ipadgen10.jpg");
+            productRepository.save(product3);
+        }
+        if (productRepository.findAll().stream().noneMatch(p -> "Ipad Mini".equalsIgnoreCase(p.getName()))) {
+            Product product4 = new Product();
+            product4.setName("Ipad Mini");
+            product4.setPrice(699.0);
+            product4.setBrand("Apple");
+            product4.setDescription("Newest Tablet");
+            product4.setCategory(new Category(2L));
+            product4.setFileUrl("../uploads/ipadmini.jpg");
+            productRepository.save(product4);
+        }
+        if (productRepository.findAll().stream().noneMatch(p -> "Samsung S23".equalsIgnoreCase(p.getName()))) {
+            Product product5 = new Product();
+            product5.setName("Samsung S23");
+            product5.setPrice(849.0);
+            product5.setBrand("Samsung");
+            product5.setDescription("Newest Phone");
+            product5.setCategory(new Category(1L));
+            product5.setFileUrl("../uploads/samsungs23.png");
+            productRepository.save(product5);
+        }
+        if (productRepository.findAll().stream().noneMatch(p -> "Iphone 15 Pro Max".equalsIgnoreCase(p.getName()))) {
+            Product product6 = new Product();
+            product6.setName("Iphone 15 Pro Max");
+            product6.setPrice(999.0);
+            product6.setBrand("Apple");
+            product6.setDescription("Newest Phone");
+            product6.setCategory(new Category(1L));
+            product6.setFileUrl("../uploads/iphone15promax.png");
+            productRepository.save(product6);
+        }
+        if (productRepository.findAll().stream().noneMatch(p -> "Samsung S10".equalsIgnoreCase(p.getName()))) {
+            Product product7 = new Product();
+            product7.setName("Samsung S10");
+            product7.setPrice(499.0);
+            product7.setBrand("Samsung");
+            product7.setDescription("Newest Phone");
+            product7.setCategory(new Category(1L));
+            product7.setFileUrl("../uploads/samsungs10.jpg");
+            productRepository.save(product7);
+        }
+        if (productRepository.findAll().stream().noneMatch(p -> "Ipad Pro 11".equalsIgnoreCase(p.getName()))) {
+            Product product8 = new Product();
+            product8.setName("Ipad Pro 11");
+            product8.setPrice(749.0);
+            product8.setBrand("Apple");
+            product8.setDescription("Newest Tablet");
+            product8.setCategory(new Category(2L));
+            product8.setFileUrl("../uploads/ipadpro11.png");
+            productRepository.save(product8);
+        }
     }
 
     private void saveImage(Product product, MultipartFile file) throws IOException {

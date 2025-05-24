@@ -9,14 +9,135 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Admin Page</title>
+    <title>Edit Product - Modern</title>
 
     <!-- Custom fonts for this template-->
     <link th:href="@{/css/admin/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,600,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <!-- Custom styles for this template-->
     <link th:href="@{/css/admin/css/sb-admin-2.min.css}" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #f8f9fc;
+        }
+        .modern-card {
+            background: #fff;
+            border-radius: 2.5rem;
+            box-shadow: 0 8px 40px 0 rgba(90,0,120,0.10);
+            padding: 3rem 2.5rem 2.5rem 2.5rem;
+            max-width: 480px;
+            width: 100%;
+            margin: 2rem auto;
+            animation: fadeIn 1s;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .modern-title {
+            text-align: center;
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #4e73df;
+            margin-bottom: 0.5rem;
+            letter-spacing: 1px;
+        }
+        .modern-title i {
+            font-size: 2.5rem;
+            color: #2e59d9;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+        .modern-form-group {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+        .modern-form-input {
+            width: 100%;
+            border: none;
+            border-radius: 1.5rem;
+            background: #f3f6fa;
+            padding: 1.1rem 1.2rem 0.7rem 1.2rem;
+            font-size: 1rem;
+            font-family: inherit;
+            color: #4e73df;
+            font-weight: 500;
+            outline: none;
+            transition: box-shadow 0.2s, background 0.2s;
+            box-shadow: 0 2px 8px rgba(78,115,223,0.07);
+        }
+        .modern-form-input:focus {
+            background: #e7eefe;
+            box-shadow: 0 4px 16px rgba(78,115,223,0.13);
+        }
+        .modern-form-label {
+            position: absolute;
+            left: 1.2rem;
+            top: 1.1rem;
+            color: #4e73df;
+            font-size: 1rem;
+            font-weight: 500;
+            pointer-events: none;
+            transition: 0.2s;
+            background: transparent;
+        }
+        .modern-form-input:focus + .modern-form-label,
+        .modern-form-input:not(:placeholder-shown) + .modern-form-label {
+            top: -0.8rem;
+            left: 1rem;
+            font-size: 0.85rem;
+            color: #2e59d9;
+            background: #fff;
+            padding: 0 0.3rem;
+            border-radius: 0.5rem;
+        }
+        .modern-btn-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+            margin-top: 2rem;
+        }
+        .modern-btn {
+            border: none;
+            border-radius: 2rem;
+            padding: 0.9rem 2.2rem;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #fff;
+            background: linear-gradient(90deg, #4e73df 0%, #2e59d9 100%);
+            box-shadow: 0 2px 8px rgba(78,115,223,0.13);
+            cursor: pointer;
+            transition: background 0.2s, transform 0.2s;
+        }
+        .modern-btn:hover {
+            background: linear-gradient(90deg, #2e59d9 0%, #4e73df 100%);
+            transform: translateY(-2px) scale(1.04);
+        }
+        .modern-btn-cancel {
+            background: #e0e0e0;
+            color: #4e73df;
+        }
+        .modern-btn-cancel:hover {
+            background: #f3f6fa;
+            color: #2e59d9;
+        }
+        .modern-image-preview {
+            display: block;
+            margin: 0.5rem auto 0 auto;
+            max-width: 100%;
+            max-height: 180px;
+            border-radius: 1.2rem;
+            box-shadow: 0 2px 8px rgba(78,115,223,0.13);
+            background: #f3f6fa;
+        }
+        @media (max-width: 600px) {
+            .modern-card { padding: 1.2rem; }
+        }
+    </style>
 
 </head>
 
@@ -40,52 +161,51 @@
             <!-- End of Topbar -->
 
             <!-- Begin Page Content -->
-            <div class="container">
+            <div class="container my-5">
                 <div class="row justify-content-center">
-                    <div class="col-xl-5 col-lg-6 col-md-8 border mt-3 pt-3 rounded mx-3">
-                        <h4 class="text-success">Editing New Product</h4>
-                        <form th:action="@{/admin-page/products/edit/{id}(id=${product.id})}" class="mt-3" method="post" enctype="multipart/form-data" th:object = "${product}">
-                            <div class="form-group">
-                                <label for="name">Name</label>
-                                <input id="name" th:field="*{name}" required="required" class="form-control" type="text" placeholder="Enter Product Name">
+                    <div class="col-xl-6 col-lg-7 col-md-9">
+                        <div class="modern-card">
+                            <div class="modern-title">
+                                <i class="fas fa-pen-to-square"></i>
+                                EDIT PRODUCT
                             </div>
-
-                            <div class="form-group">
-                                <label for="price">Price</label>
-                                <input th:field="*{price}" id="price" required="required" class="form-control" type="number" placeholder="Enter Product Price">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="category" class="control-label">Category</label>
-                                <select id="category" name = "category.categoryId" class="form-control">
-                                    <option th:each="category : ${categories}"
-                                            th:value="${category.categoryId}"
-                                            th:text="${category.categoryName}">
-                                    </option>
-                                </select>
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="description" class="form-label">Description</label>
-                                <textarea th:field="*{description}" class="form-control" id="description" rows="3" required placeholder="Enter Product Description"></textarea>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="brand">Brand</label>
-                                <input th:field="*{brand}" id="brand" required="required" class="form-control" type="text" placeholder="Enter Product Brand">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="image">Image</label>
-                                <input th:field="*{imageFile}" id="image" name="image" class="form-control" type="file" placeholder="Enter Product Image" onchange="previewImage(this)">
-                                <img id="imagePreview" src="#" alt="Image Preview" style="display: none; max-width: 100%; margin-top: 10px;">
-                            </div>
-
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-success mr-2">Edit</button>
-                                <a th:href="@{/admin-page/products}" class="btn btn-secondary">Cancel</a>
-                            </div>
-                        </form>
+                            <form th:action="@{/admin-page/products/edit/{id}(id=${product.id})}" method="post" enctype="multipart/form-data" th:object = "${product}">
+                                <div class="modern-form-group">
+                                    <input id="name" th:field="*{name}" required="required" class="modern-form-input" type="text" placeholder=" " autocomplete="off">
+                                    <label for="name" class="modern-form-label">Name</label>
+                                </div>
+                                <div class="modern-form-group">
+                                    <input th:field="*{price}" id="price" required="required" class="modern-form-input" type="number" placeholder=" " autocomplete="off">
+                                    <label for="price" class="modern-form-label">Price</label>
+                                </div>
+                                <div class="modern-form-group">
+                                    <select id="category" name="category.categoryId" class="modern-form-input" style="padding-right:2rem;">
+                                        <option th:each="category : ${categories}"
+                                                th:value="${category.categoryId}"
+                                                th:text="${category.categoryName}">
+                                        </option>
+                                    </select>
+                                    <label for="category" class="modern-form-label">Category</label>
+                                </div>
+                                <div class="modern-form-group">
+                                    <textarea th:field="*{description}" class="modern-form-input" id="description" rows="3" required placeholder=" " style="resize:vertical;"></textarea>
+                                    <label for="description" class="modern-form-label">Description</label>
+                                </div>
+                                <div class="modern-form-group">
+                                    <input th:field="*{brand}" id="brand" required="required" class="modern-form-input" type="text" placeholder=" " autocomplete="off">
+                                    <label for="brand" class="modern-form-label">Brand</label>
+                                </div>
+                                <div class="modern-form-group">
+                                    <input th:field="*{imageFile}" id="image" name="image" class="modern-form-input" type="file" placeholder=" " onchange="previewImage(this)">
+                                    <label for="image" class="modern-form-label">Image</label>
+                                    <img id="imagePreview" src="#" alt="Image Preview" class="modern-image-preview" style="display: none;"/>
+                                </div>
+                                <div class="modern-btn-group">
+                                    <button type="submit" class="modern-btn"><i class="fas fa-save"></i> Save Changes</button>
+                                    <a th:href="@{/admin-page/products}" class="modern-btn modern-btn-cancel"><i class="fas fa-times"></i> Cancel</a>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -108,12 +228,10 @@
         var preview = document.getElementById('imagePreview');
         var file = input.files[0];
         var reader = new FileReader();
-
         reader.onloadend = function () {
             preview.src = reader.result;
             preview.style.display = 'block';
         }
-
         if (file) {
             reader.readAsDataURL(file);
         } else {
@@ -122,6 +240,7 @@
         }
     }
 </script>
+
 <!-- Logout Modal-->
 <div th:replace = "logout :: logout"></div>
 

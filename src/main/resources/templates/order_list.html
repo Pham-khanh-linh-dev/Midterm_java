@@ -17,6 +17,53 @@
 
     <!-- Custom styles for this template-->
     <link th:href="@{/css/admin/css/sb-admin-2.min.css}" rel="stylesheet">
+    <style>
+        .order-card {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        .order-card:hover {
+            transform: translateY(-5px);
+        }
+        .table {
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .table thead th {
+            background: #4e73df;
+            color: white;
+            font-weight: 500;
+            border: none;
+        }
+        .table tbody tr {
+            transition: background-color 0.3s ease;
+        }
+        .table tbody tr:hover {
+            background-color: #f8f9fc;
+        }
+        .page-title {
+            color: #4e73df;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 2rem;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        .page-title:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: #4e73df;
+            border-radius: 2px;
+        }
+    </style>
 
 </head>
 
@@ -42,28 +89,30 @@
             <!-- Begin Page Content -->
             <div class="container-fluid">
 
-                <div class="container my-3">
-                    <h4 class="my-1 text-primary text-center text-uppercase">List Of Order</h4>
-                    <table class="table table-striped border">
-                        <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Phone</th>
-                            <th>Address</th>
-                            <th>Order Date</th>
-                            <th>Total Price</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr th:each="order : ${orders}">
-                            <td th:text="${order.name}" class="align-middle"></td>
-                            <td th:text="${order.phone}" class="align-middle"></td>
-                            <td th:text="${order.address}" class="align-middle"></td>
-                            <td th:text="${order.orderDate}" class="align-middle"></td>
-                            <td th:text="${order.totalPrice}" class="align-middle"></td>
-                        </tr>
-                        </tbody>
-                    </table>
+                <div class="container my-5">
+                    <h4 class="page-title text-center">List Of Orders</h4>
+                    <div class="order-card p-4">
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Phone</th>
+                                <th>Address</th>
+                                <th>Order Date</th>
+                                <th>Total Price</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="order : ${orders}">
+                                <td th:text="${order.name}" class="align-middle"></td>
+                                <td th:text="${order.phone}" class="align-middle"></td>
+                                <td th:text="${order.address}" class="align-middle"></td>
+                                <td th:text="${order.orderDate}" class="align-middle"></td>
+                                <td th:text="${order.totalPrice}" class="align-middle"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
 
             </div>
