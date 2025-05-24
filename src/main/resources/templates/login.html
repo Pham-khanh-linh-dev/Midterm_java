@@ -1,29 +1,179 @@
 <!DOCTYPE html>
-<html xmlns:th = "http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <link rel="stylesheet" th:href="@{../css/styles.css}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Login Form</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: url('https://thuthuatnhanh.com/wp-content/uploads/2023/06/hinh-nen-may-tinh-4k-don-gian-ma-dep-chill.jpg') no-repeat center center/cover;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            width: 100%;
+            max-width: 400px;
+            animation: fadeIn 0.5s ease-in-out;
+            margin: 1rem;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .header-panel, .form-panel {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .header-panel {
+            text-align: center;
+        }
+
+        h2 {
+            color: #fff;
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+
+        .message {
+            background: rgba(255, 230, 230, 0.8);
+            color: #d32f2f;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            display: none;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        label {
+            display: block;
+            color: #fff;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 0.8rem;
+            border: none;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        input:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 0.9rem;
+            background: #6e8efb;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background: #5a78e0;
+        }
+
+        .register-link {
+            text-align: center;
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+            color: #fff;
+        }
+
+        .register-link a {
+            color: #a8b5ff;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .register-link a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                margin: 1rem;
+            }
+            .header-panel, .form-panel {
+                padding: 1.5rem;
+            }
+        }
+    </style>
 </head>
 <body>
 <div class="container">
-    <h2>Login Form</h2>
-    <div class="message" th:if="${param.login}">
-        Invalid Username or Password
+
+    <div class="form-panel">
+        <div class="message" id="errorMessage" th:if="${param.login}">
+            Invalid Username or Password
+        </div>
+        <form id="registrationForm" th:action="@{/login}" method="POST">
+            <div class="form-group">
+                <label for="username">Email</label>
+                <input type="text" id="username" name="username" placeholder="Enter your email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+            </div>
+            <button type="submit" class="submit-btn">Login</button>
+            <div class="register-link">
+                <p>Don't have an account? <a th:href="@{/registration}">Register Now</a></p>
+            </div>
+        </form>
     </div>
-    <br>
-    <form id="registrationForm"
-          th:action="@{/login}"
-          method="POST"
-    >
-        <label for="username">Email:</label>
-        <input type="text" id="username" name="username" placeholder="Enter your email" required>
-
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" placeholder="Enter your password" required>
-
-        <input type="submit" value="Login">
-
-        <p> Don't have account <a th:href="@{/registration}">Register Now </a></p>
-    </form>
 </div>
+
+<script>
+    // Show error message with animation if present
+    const errorMessage = document.getElementById('errorMessage');
+    if (errorMessage && errorMessage.textContent.trim()) {
+        errorMessage.style.display = 'block';
+        errorMessage.style.animation = 'fadeIn 0.5s ease-in-out';
+    }
+</script>
 </body>
 </html>
